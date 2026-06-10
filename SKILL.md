@@ -1,6 +1,6 @@
 ---
 name: delegate-to-subagents
-description: MUST use before repo inspection, workspace scan, web or local search, research, coding, debugging, refactor, code review, file triage, document analysis, planning, comparison, implementation, or verification when more than a tiny one-file check. Triggers include broad multi-step work and any task where subagents can gather evidence.
+description: MUST use for almost any technical task that touches files, code, search, research, debugging, refactor, review, planning, implementation, or verification. Only skip for pure chat or a trivial one-line shell command. Triggers include broad multi-step work and any task where subagents can gather evidence.
 ---
 
 # Delegate To Subagents
@@ -13,7 +13,7 @@ This skill optimizes token use: the main model should avoid loading large web, f
 
 ## Delegation Decision
 
-Hard rule: for repo inspection, workspace scan, web/current research, broad file search, log analysis, code review, debugging, refactor planning, implementation, or verification that is more than a tiny one-file check, delegate first. Do not start broad `rg`, directory scans, long file reads, web searches, or test exploration in the main model before launching at least one subagent.
+Hard rule: for any technical task that touches files, code, repo content, web/current research, broad file search, log analysis, code review, debugging, refactor planning, implementation, or verification, delegate first. Do not start broad `rg`, directory scans, long file reads, web searches, or test exploration in the main model before launching at least one subagent. Only skip for pure chat or a trivial one-line shell command.
 
 Delegate before doing broad search, reading many files, scanning long logs, analyzing large documents, or starting broad implementation when all are true:
 
@@ -26,7 +26,8 @@ Default to delegating when unsure. The main model may inspect only the minimum n
 
 Keep the work in the main model when:
 
-- The user only asks a small question or one-line command.
+- The user only asks pure chat or a trivial one-line shell command.
+- The request is not technical work and does not touch files, code, search, or verification.
 - The change is tiny and cheaper to do directly.
 - The task requires sensitive credentials, live production mutation, or explicit user approval.
 - No subagent tool or safe Codex exec fallback is available in the current runtime.
