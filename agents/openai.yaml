@@ -1,0 +1,7 @@
+interface:
+  display_name: "Delegate to Subagents"
+  short_description: "Delegate heavy tasks to subagents"
+  default_prompt: "Use $delegate-to-subagents to plan, delegate heavy search, analysis, or repo work to subagents when available, then review and verify before completion."
+
+policy:
+  allow_implicit_invocation: true
