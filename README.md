@@ -1,37 +1,37 @@
 # Delegate to Subagents
 
-Portable Codex skill for delegating broad work to subagents before the main model starts heavy repo/web/log exploration.
+Portable policy for delegating work only when isolation, parallelism, or context savings justify coordination cost.
 
-## What it covers
+## Highlights
 
-- Repo inspection
-- Workspace scans
-- Web or local research
-- Debugging, refactor, implementation, review, verification
-- Cross-CLI delegation patterns for Codex, Claude Code, and Gemini CLI
+- Native subagents first; process-based CLI only as fallback
+- Small tasks stay in main agent
+- Read-only research and review
+- Workspace-write only with exclusive file ownership
+- Coordinator reviews evidence and runs final verification
+
+## Install for Codex
+
+```bash
+git clone https://github.com/thaikhang113/delegate-to-subagents-skill.git ~/.codex/skills/delegate-to-subagents
+```
+
+Update:
+
+```bash
+git -C ~/.codex/skills/delegate-to-subagents pull --ff-only
+```
+
+Validate:
+
+```bash
+python ~/.codex/skills/delegate-to-subagents/scripts/validate.py
+```
 
 ## Files
 
-- `SKILL.md`: main policy and workflow
+- `SKILL.md`: portable delegation policy
 - `agents/openai.yaml`: Codex skill metadata
+- `scripts/validate.py`: dependency-free smoke validation
 
-## Codex usage
-
-The fallback launcher resolves the subagent model from local Codex config at runtime:
-
-- `C:\Users\<you>\.codex\config.toml`
-- `~/.codex/config.toml` via `$CODEX_HOME` when set
-
-If `[agents.subagent].model` exists, it uses that model for `codex exec`. If not, it falls back to the active default model.
-
-## Child prompt shape
-
-Subagent prompts should include the stop guard:
-
-```text
-You are dispatched as a subagent. Skip using-superpowers, skip delegate-to-subagents, and do not spawn more subagents.
-```
-
-## Status
-
-This repo stores the portable skill definition itself. The skill is designed to be reused across CLI runtimes by adapting only the launcher layer.
+Launcher syntax varies by runtime. Skill intentionally avoids unsafe universal shell recipes and relies on native subagent tooling whenever available.
